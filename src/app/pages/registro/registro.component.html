@@ -1,0 +1,50 @@
+<form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input type="text" class="form-control" id="nome" placeholder="Digite seu nome." formControlName="nome"
+      minlength="3" [ngClass]="{ 'is-invalid': submitted && f.nome.errors }" />
+    <div *ngIf="f.nome.errors" class="invalid-feedback">
+      <div *ngIf="f.nome.errors.required">Nome é obrigatório!</div>
+      <div *ngIf="f.nome.errors.minlength">Tamanho mínimo de 3 caracteres</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cpf">Cpf</label>
+    <input type="text" class="form-control" id="cpf" placeholder="Digite seu cpf." [dropSpecialCharacters]="false"
+      mask="000.000.000-00" formControlName="cpf"
+      [ngClass]="{ 'is-invalid': submitted && f.cpf.errors || submitted && cpfExiste }" />
+    <div *ngIf="f.cpf.errors" class="invalid-feedback">
+      <div *ngIf="f.cpf.errors.required">CPF é obrigatório!</div>
+    </div>
+    <div *ngIf="cpfExiste" class="invalid-feedback">CPF já cadastrado!</div>
+  </div>
+
+  <div class="form-group">
+    <label for="data_nascimento">Data de nascimento</label>
+    <input type="date" class="form-control" id="data_nascimento" formControlName="data_nascimento">
+  </div>
+
+  <div class="form-group">
+    <label for="peso">Peso(Kg)</label>
+    <input type="text" class="form-control" id="peso" placeholder="Digite seu peso." [dropSpecialCharacters]="false"
+      mask="00.00" formControlName="peso">
+  </div>
+
+  <div class="form-group">
+    <label for="UF">UF</label>
+    <div class="dropdown">
+      <select name="estado" class="btn btn-light dropdown-toggle" id="estado" formControlName="estado">
+        <option>Selecione</option>
+        <option *ngFor="let e of estados">
+          {{e.sigla}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <br>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+  </div>
+</form>
